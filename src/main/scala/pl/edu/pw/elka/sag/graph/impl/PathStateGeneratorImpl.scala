@@ -20,6 +20,6 @@ class PathStateGeneratorImpl extends PathStateGenerator {
     if (iteration % 2 == 0) {
       map.put('C', !map.get('C').get)
     }
-    return new PathState(iteration, map)
+    new PathState(iteration, map)
   }
 }

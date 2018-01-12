@@ -11,7 +11,7 @@ class World(private val pathGenerator: PathGenerator, private val pathStateGener
   var path = pathGenerator.getPath()
 
   def generatePathState() : PathState = {
-    return pathStateGenerator.getPathState(path);
+    pathStateGenerator.getPathState(path);
   }
 
   override def receive: Receive = {

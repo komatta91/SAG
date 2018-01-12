@@ -15,7 +15,4 @@ package object messages {
   case class VehicleMove(val path:PathState, val prevPosition:Double)
   case object VehicleDone
   case object VehicleDestinationReached
-
-
-
 }

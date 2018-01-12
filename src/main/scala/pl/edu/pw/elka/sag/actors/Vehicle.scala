@@ -7,10 +7,10 @@ import pl.edu.pw.elka.sag.messages.{VehicleDestinationReached, VehicleDone, Vehi
 class Vehicle(private val num: Int, private val convoy: ActorRef, path: Path) extends Actor with ActorLogging {
   val maxSpeed = 20.0
   var speed = 10.0
-  var position = 0.0;
+  var position = 0.0
 
   def doMove(pathState: PathState, prevPosition: Double): PathState = {
-    var drive = true;
+    var drive = true
     if (path.enterCrossing(position, position + speed)) {
       val crossing = path.getCrossing(position, position + speed)
       if (pathState.isDriveThrough(crossing)) {
@@ -31,11 +31,11 @@ class Vehicle(private val num: Int, private val convoy: ActorRef, path: Path) ex
     } else {
       speed = 0
     }
-    return pathState
+    pathState
   }
 
   def checkFinish(): Boolean = {
-    return path.finish(position)
+    path.finish(position)
   }
 
   def receive: Receive = {
