@@ -5,8 +5,8 @@ import pl.edu.pw.elka.sag.graph.{Path, PathState}
 import pl.edu.pw.elka.sag.messages.{VehicleDestinationReached, VehicleDone, VehicleMove}
 
 class Vehicle(private val num: Int, private val convoy: ActorRef, path: Path) extends Actor with ActorLogging {
-  val maxSpeed = 20.0
-  var speed = 10.0
+  val maxSpeed = path.maxSpeed
+  var speed =  0.0
   var position = 0.0
 
   def doMove(pathState: PathState, prevPosition: Double): PathState = {
@@ -24,13 +24,17 @@ class Vehicle(private val num: Int, private val convoy: ActorRef, path: Path) ex
     }
     if (drive) {
       if (prevPosition == -1) {
-        speed = 10.0
+        speed =  maxSpeed / 2
       } else {
         speed = math.min(maxSpeed, prevPosition - position)
       }
     } else {
       speed = 0
     }
+    if (position > path.len) {
+      position = path.len
+    }
+
     pathState
   }
 
@@ -42,7 +46,7 @@ class Vehicle(private val num: Int, private val convoy: ActorRef, path: Path) ex
     case VehicleMove(pathState: PathState, prevPosition: Double) => {
       if (!checkFinish()) {
         val newPathState = doMove(pathState, prevPosition)
-        println(pathState.iterNum + ": Vehicle: " + num + " moving to: " + position + " with speed: " + speed)
+        println(pathState.iterNum + ": Vehicle: " + num + " moving to: " + (position - (position % 0.01)) + " with speed: " + (speed - (speed % 0.01)))
         context.children.foreach(_ ! VehicleMove(newPathState, position))
       } else {
         context.children.foreach(_ ! VehicleMove(pathState, position))

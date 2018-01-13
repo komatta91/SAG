@@ -1,6 +1,6 @@
 package pl.edu.pw.elka.sag.graph
 
-class Path(val len:Double, val crossings:Map[Double, Char]) {
+class Path(val len:Double, val crossings:Map[Double, Char], val maxSpeed:Double) {
   def finish(to:Double) : Boolean = {
     to >= len
   }
