@@ -10,9 +10,9 @@ class World(private val pathGenerator: PathGenerator, private val pathStateGener
   var path = pathGenerator.getPath()
 
   println("****** Generated Path ******")
-  println(("Path length: %8.2f".format(path.len)))
-  println(("Max speed: %8.2f".format(path.maxSpeed)))
-  path.crossings.foreach({ case (key, value) => println("Cross " + value + " on position " + "%8.2f".format(key)) })
+  println(("Path length: %8.2f".formatLocal(java.util.Locale.US, path.len)))
+  println(("Max speed: %8.2f".formatLocal(java.util.Locale.US, path.maxSpeed)))
+  path.crossings.foreach({ case (key, value) => println("Cross " + value + " on position " + "%8.2f".formatLocal(java.util.Locale.US, key)) })
   println("****************************")
 
   def generatePathState() : PathState = {
