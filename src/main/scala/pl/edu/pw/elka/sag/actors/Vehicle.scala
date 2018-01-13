@@ -46,7 +46,7 @@ class Vehicle(private val num: Int, private val convoy: ActorRef, path: Path) ex
     case VehicleMove(pathState: PathState, prevPosition: Double) => {
       if (!checkFinish()) {
         val newPathState = doMove(pathState, prevPosition)
-        println(pathState.iterNum + ": Vehicle: " + num + " moving to: " + (position - (position % 0.01)) + " with speed: " + (speed - (speed % 0.01)))
+        println(pathState.iterNum + ": Vehicle: " + num + f" moving to:" + "%8.2f".format(position) + " with speed:" + "%8.2f".format(speed))
         context.children.foreach(_ ! VehicleMove(newPathState, position))
       } else {
         context.children.foreach(_ ! VehicleMove(pathState, position))

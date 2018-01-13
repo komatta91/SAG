@@ -1,7 +1,6 @@
 package pl.edu.pw.elka.sag.actors
 
 import akka.actor.{Actor, ActorLogging, Props}
-import akka.event.Logging
 import pl.edu.pw.elka.sag.messages.BeginSimulation
 import pl.edu.pw.elka.sag.graph.{PathGenerator, PathState, PathStateGenerator}
 import pl.edu.pw.elka.sag.messages._
@@ -11,9 +10,9 @@ class World(private val pathGenerator: PathGenerator, private val pathStateGener
   var path = pathGenerator.getPath()
 
   println("****** Generated Path ******")
-  println(("Path length: " + path.len))
-  println(("Max speed: " + path.len))
-  path.crossings.foreach({ case (key, value) => println("Cross " + value + " on position " + (key - (key % 0.01))) })
+  println(("Path length: %8.2f".format(path.len)))
+  println(("Max speed: %8.2f".format(path.maxSpeed)))
+  path.crossings.foreach({ case (key, value) => println("Cross " + value + " on position " + "%8.2f".format(key)) })
   println("****************************")
 
   def generatePathState() : PathState = {
