@@ -11,9 +11,15 @@ class Convoy  extends Actor with ActorLogging{
       context.actorOf(Props{new Vehicle(numVehicles, self, path)}, "V" + numVehicles)
     }
 
-    case ConvoyMove(path:PathState) => {
+    case ConvoyMove(pathState:PathState) => {
       log.debug("Convoy::ConvoyMove")
-      context.children.foreach(_ ! VehicleMove(path, -1))
+
+      println("*** Generated PathState ***")
+      println(("Iteration number: " + pathState.iterNum))
+      pathState.crossings.foreach({ case (key, value) => println("Cross " + key + " is open " + value ) })
+      println("***************************")
+
+      context.children.foreach(_ ! VehicleMove(pathState, -1))
     }
 
     case VehicleDone => {

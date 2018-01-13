@@ -10,6 +10,12 @@ class World(private val pathGenerator: PathGenerator, private val pathStateGener
   val convoy = context.actorOf(Props[Convoy], name = "convoy")
   var path = pathGenerator.getPath()
 
+  println("****** Generated Path ******")
+  println(("Path length: " + path.len))
+  println(("Max speed: " + path.len))
+  path.crossings.foreach({ case (key, value) => println("Cross " + value + " on position " + (key - (key % 0.01))) })
+  println("****************************")
+
   def generatePathState() : PathState = {
     pathStateGenerator.getPathState(path);
   }
