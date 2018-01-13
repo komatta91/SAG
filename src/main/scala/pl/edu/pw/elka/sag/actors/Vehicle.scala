@@ -4,11 +4,23 @@ import akka.actor.{Actor, ActorLogging, ActorRef, Props}
 import pl.edu.pw.elka.sag.graph.{Path, PathState}
 import pl.edu.pw.elka.sag.messages.{VehicleDestinationReached, VehicleDone, VehicleMove}
 
+/**
+  * The agent controlling a vehicle in convoy
+  * @param num - id of the vehicle
+  * @param convoy -
+  * @param path
+  */
 class Vehicle(private val num: Int, private val convoy: ActorRef, path: Path) extends Actor with ActorLogging {
   val maxSpeed = path.maxSpeed
   var speed =  0.0
   var position = 0.0
 
+  /**
+    * Implementation of the Vehicle Path and crossings traversal
+    * @param pathState - current Path state
+    * @param prevPosition - last Vehicle position in Path
+    * @return - new Path state after Vehicle traversal
+    */
   def doMove(pathState: PathState, prevPosition: Double): PathState = {
     var drive = true
     if (path.enterCrossing(position, position + speed)) {
@@ -38,6 +50,10 @@ class Vehicle(private val num: Int, private val convoy: ActorRef, path: Path) ex
     pathState
   }
 
+  /**
+    * Predicate for completing the Path traversal
+    * @return true if Path traversal is completed, false otherwise
+    */
   def checkFinish(): Boolean = {
     path.finish(position)
   }

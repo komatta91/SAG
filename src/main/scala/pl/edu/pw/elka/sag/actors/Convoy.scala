@@ -4,6 +4,9 @@ import akka.actor.{Actor, ActorLogging, Props}
 import pl.edu.pw.elka.sag.graph.{Path, PathState}
 import pl.edu.pw.elka.sag.messages._
 
+/**
+  * Pseudo-agent providing between-agent communication for Vehicle agents
+  */
 class Convoy  extends Actor with ActorLogging{
   override def receive: Receive = {
     case ConvoyPrepare(numVehicles:Int, path:Path) => {

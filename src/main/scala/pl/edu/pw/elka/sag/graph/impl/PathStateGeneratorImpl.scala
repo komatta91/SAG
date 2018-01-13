@@ -2,6 +2,9 @@ package pl.edu.pw.elka.sag.graph.impl
 
 import pl.edu.pw.elka.sag.graph.{Path, PathGenerator, PathState, PathStateGenerator}
 
+/**
+  * World state element providing intersection states
+  */
 class PathStateGeneratorImpl extends PathStateGenerator {
   var iteration = 0
   val map = scala.collection.mutable.Map[Char,Boolean]()

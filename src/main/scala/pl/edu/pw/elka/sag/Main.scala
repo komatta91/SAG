@@ -9,7 +9,4 @@ object Main extends App {
   var system = ActorSystem("BaseSystem")
   var actor = system.actorOf(Props(new World(new PathGeneratorImpl(), new PathStateGeneratorImpl())), "World")
   actor ! BeginSimulation(5)
-
-
-
 }

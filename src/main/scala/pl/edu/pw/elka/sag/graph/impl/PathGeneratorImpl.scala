@@ -2,6 +2,9 @@ package pl.edu.pw.elka.sag.graph.impl
 
 import pl.edu.pw.elka.sag.graph.{Path, PathGenerator}
 
+/**
+  * World generator element generating linear Path with intersections for the Vehicles to traverse
+  */
 class PathGeneratorImpl extends PathGenerator {
   def getRandomInt(min: Int, max: Int): Int = {
     val r = scala.util.Random
